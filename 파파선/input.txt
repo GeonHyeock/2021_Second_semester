@@ -1,0 +1,3 @@
+Matrix_size =  10       10
+      tiger = 2 3        0
+lion = 3    2 1       
