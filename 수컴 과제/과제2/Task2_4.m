@@ -12,4 +12,4 @@ f2 = func2(X,Y)
 figure(2)
 contour(X,Y,f2)
 axis([0 2*pi 0 2*pi])
-
+axis equal
