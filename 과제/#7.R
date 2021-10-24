@@ -16,6 +16,6 @@ n_diff <- min(n1-1,n2-1)
 # H0 : u1-u2 = 0, H1 : u1 - u2 > 0
 t0 <- mean_diff/sqrt(sd1^2/n1 + sd2^2/n2)
 p_value <- pt(t0, df = n_diff,lower.tail = FALSE)
-p_value < 0.05 #가 참이므로 귀무가설을 기각한다. 즉 유의수준 0.05 하에서  u1 > u2 가 옳다고 할 수 있다.
+p_value < 0.05 #가 참이므로 귀무가설을 기각한다. 즉 유의수준 0.05 하에서  u1 > u2 가 옳다고 주장할 수 있다.
 
  

@@ -1,0 +1,115 @@
+# 1 - 1
+n <- 42 # 표본의 수
+sample_mean <- 8.79 # 표본평균
+sd <- 1.27 # 표본 표준편차
+
+# H0 : u = 8.5, u != 8.5
+mean <- 8.5 # 귀무가설이 참이라는 가정하에 모평균
+x0 <- (8.79 - 8.5)/(sd/sqrt(n)) # 검정통계량
+a_upper <- qnorm(0.05, lower.tail = FALSE) # 유의수준 0.1에 대한 상한 값
+a_lower <- qnorm(0.05, lower.tail = TRUE) # 유의수준 0.1에 대한 하한 값
+a_lower > x0 | x0 > a_upper # 가 거짓이므로 귀무가설을 기각하지 못한다.
+
+# 1 - 2
+p_value <- pnorm(x0, lower.tail = FALSE) + pnorm(-x0, lower.tail = TRUE)
+p_value # p_value가 약 0.139이므로 유의수준이 0.139이상일 경우에 귀무가설을 기각 할 수 있다.
+
+
+
+# 2 - 1
+n <- 2000 #표본수
+x <- 165 # 직업을 갖지 않은 사람의 수
+p_sample <- x/n # 추정된 실업률
+p_sample
+
+# 2 - 2
+z_0.025 <- qnorm(0.025, lower.tail = FALSE)
+C.I. <- c(p_sample - z_0.025*sqrt(p_sample*(1-p_sample)/n),p_sample + z_0.025*sqrt(p_sample*(1-p_sample)/n))
+C.I. # 95% 신뢰구간
+
+# 3
+n <- 130 # 표본의 수
+x <- 38 # 20시간 이상 공부하는 학생 수
+p_sample <- x/n
+
+# 귀무가설 : p = 0.25, 대립가설 : p > 0.25
+p <- 0.25
+
+p0 <- (p_sample - p) / sqrt(p*(1-p)/n) # 검정통계량
+p_value <- pnorm(p0, lower.tail = FALSE) # p_value가 약 0.133 이므로 유의수준 0.133 이상에서 귀무가설을 기각한다
+
+
+#4
+n <- 18 # 표본수
+sample_mean <- 4.1 # 표본평균
+sampel_sd <- 1.6 # 표본 표준편차
+
+# 가정 : 표본의 모집단이 정규분포를 따른다.
+# H0 : u = 3.5, H1 : u > 3.5
+
+t0 <- (sample_mean - 3.5) / (1.6/sqrt(18)) # 검정통계량
+p_value <- pt(t0,n-1,lower.tail = FALSE)
+p_value > 0.05 # 가 참이므로 H0를 기각하지 못한다.
+
+#5
+n <- 18 # 표본수
+sample_mean <- 4.1 # 표본평균
+sampel_sd <- 1.6 # 표본 표준편차
+
+# 가정 : 표본의 모집단이 정규분포를 따른다.
+# H0 : u = 3.5, H1 : u > 3.5
+t_0.025 <- qt(0.025,df = n-1,lower.tail = FALSE)
+C.I. <- c(sample_mean-t_0.025*(1.6/sqrt(n)),sample_mean+t_0.025*(1.6/sqrt(n)));C.I.
+# t0가 신뢰구간 안에 있으므로 H0를 기각하지 못한다.
+
+# 6-1
+n <- 25
+C.I. <- c(106.8,115.2)
+
+t0.025 <- qt(0.025,df = n-1,lower.tail = FALSE)
+sample_mean <- (C.I.[1] + C.I.[2])/2
+sample_sd <- (C.I.[2] - C.I.[1])/2*sqrt(n)/t0.025
+sampel_sd
+# 6-2 H0 : ∂ = 8.0 , ∂ > 8.0
+sigma0 <- (n-1)*sample_sd^2/8^2
+p_value <- pchisq(sigma0,df = n-1,lower.tail = FALSE)
+p_value < 0.05 # 이므로 귀무가설을 기각
+
+
+#7
+n <- 27
+n1 <- 12 # 새로운 살충제
+n2 <- 15 # 기존의 살충제
+
+mean1 <- 73.9
+mean2 <- 62.4
+sd1 <- 3.7
+sd2 <- 5.5
+
+# 가정 : 두 확률변수가 서로 독립이고 정규분포를 따른다.
+mean_diff <- mean1 - mean2
+n_diff <- min(n1-1,n2-1)
+
+# 귀무가설 주어진 두 표본의 모집단의 평균을 각각 u1,u2라 가정하자
+# H0 : u1-u2 = 0, H1 : u1 - u2 > 0
+t0 <- mean_diff/sqrt(sd1^2/n1 + sd2^2/n2)
+p_value <- pt(t0, df = n_diff,lower.tail = FALSE)
+p_value < 0.05 #가 참이므로 귀무가설을 기각한다. 즉 유의수준 0.05 하에서  u1 > u2 가 옳다고 주장할 수 있다.
+
+ 
+#8
+n <- 80
+n1 <- 42 # 금연패치
+n2 <- 38 # 가짜패치
+
+p1 <- 27/n1
+p2 <- 14/n2
+p_diff <- p1 - p2
+
+# 가설검정 : H0 : p1 - p2 = 0 , H1 : p1- p2 > 0
+p_s <- (27+14)/ (n1+n2)
+p0 <- p_diff / sqrt(p_s*(1-p_s)*(1/n1 + 1/n2))
+
+p_value <- pnorm(p0, lower.tail = FALSE)
+p_value < 0.05 # 가 참이므로 귀무가설을 기각한다. 즉 유의수준 0.05 하에서 p1>p2가 유의하다고 말 할 수 있다.
+               # 유의수준 0.05 하에서 금연패치 사용이 담배를 끊게 하는 비율을 높인다고 할 수 있다.
